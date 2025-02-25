@@ -27,5 +27,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion<string>()
             .HasMaxLength(20);
 
+        builder.Property(u => u.CreatedAt)
+            .HasColumnType("timestamp with time zone")
+            .HasDefaultValueSql("NOW()");
+
+        builder.Property(u => u.UpdatedAt)
+            .HasColumnType("timestamp with time zone")
+            .HasDefaultValueSql("NOW()");
     }
 }
