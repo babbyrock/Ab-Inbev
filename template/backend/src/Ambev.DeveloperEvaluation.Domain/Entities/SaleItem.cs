@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ambev.DeveloperEvaluation.Domain.Entities
+﻿namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     /// <summary>
-    /// Represents a saleitem in the system with authentication and profile information.
+    /// Represents a sale item in the system with authentication and profile information.
     /// This entity follows domain-driven design principles and includes business rules validation.
     /// </summary>
     public class SaleItem
     {
         // <summary>
-        /// The unique identifier of the saleitem
+        /// The unique identifier of the sale item
         /// </summary>
         public Guid Id { get; set; }
 
@@ -63,6 +57,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             }
             set { }
         }
+
+        /// <summary>
+        /// Indicates if the sale item has been canceled.
+        /// </summary>
+        public bool IsCanceled { get; set; } = false; // Campo IsCanceled, default é false (não cancelado)
 
         // Constructor to initialize SaleItem with an Id
         public SaleItem()

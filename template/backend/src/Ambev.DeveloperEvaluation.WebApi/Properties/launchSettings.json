@@ -10,10 +10,10 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5119"
     },
-    "https": {
+    "Ambev.DeveloperEvaluation.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

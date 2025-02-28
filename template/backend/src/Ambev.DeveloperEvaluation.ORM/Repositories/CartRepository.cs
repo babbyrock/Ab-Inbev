@@ -24,12 +24,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
 
         public async Task<List<Cart>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Carts.Include(c => c.Products).AsNoTracking().ToListAsync(cancellationToken);
+            return await _context.Carts.Include(c => c.Products)
+                .ThenInclude(c => c.Product).AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public async Task<Cart> GetByIdAsync(int cartId, CancellationToken cancellationToken = default)
         {
-            return await _context.Carts.Include(c => c.Products)
+            return await _context.Carts.Include(c => c.Products).ThenInclude(c => c.Product)
                                        .AsNoTracking()
                                        .FirstOrDefaultAsync(c => c.Id == cartId, cancellationToken);
         }

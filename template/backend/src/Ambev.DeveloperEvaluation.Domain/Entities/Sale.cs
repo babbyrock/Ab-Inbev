@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ambev.DeveloperEvaluation.Domain.Entities
+﻿namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     /// <summary>
     /// Represents a sale in the system with authentication and profile information.
@@ -30,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// <summary>
         /// The total amount of the sale, calculated based on the products.
         /// </summary>
-        public decimal TotalSaleAmount { get; private set; }
+        public decimal TotalSaleAmount { get; set; }
 
         /// <summary>
         /// The branch where the sale was made.
@@ -50,9 +44,5 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// <summary>
         /// Calculates the total sale amount based on the product sales.
         /// </summary>
-        public void CalculateTotalSaleAmount()
-        {
-            TotalSaleAmount = Items.Sum(item => item.TotalAmount);
-        }
     }
 }

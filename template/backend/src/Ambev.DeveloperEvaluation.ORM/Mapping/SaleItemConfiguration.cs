@@ -41,17 +41,20 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .HasColumnType("decimal(18,2)")
                 .HasColumnName("TotalAmount");
 
-            // Relacionamento com Product
+            builder.Property(si => si.IsCanceled)
+                .IsRequired()
+                .HasColumnType("boolean")
+                .HasDefaultValue(false);
+
             builder.HasOne(si => si.Product)
                 .WithMany()
                 .HasForeignKey(si => si.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Relacionamento com Sale
             builder.HasOne(si => si.Sale)
                 .WithMany(s => s.Items)
                 .HasForeignKey(si => si.SaleId)
-                .OnDelete(DeleteBehavior.Cascade); // Ao excluir uma venda, exclui os itens
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

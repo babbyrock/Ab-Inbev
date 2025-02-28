@@ -1,14 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Rebus.Messages;
 
 namespace Ambev.DeveloperEvaluation.Domain.Events
 {
-    public class SaleCreatedEvent : IEvent
+    public class SaleCreatedEvent
     {
-        public Sale Sale { get; }
-
-        public SaleCreatedEvent(Sale sale)
-        {
-            Sale = sale;
-        }
+        public string Customer { get; set; }
+        public string Branch { get; set; }
+        public int CartId { get; set; }
     }
 }

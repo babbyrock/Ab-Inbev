@@ -1,32 +1,25 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
-using Ambev.DeveloperEvaluation.Application.DTOs;
-using AutoMapper;
-using System.Threading.Tasks;
-using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Domain.Services;
+using Ambev.DeveloperEvaluation.Domain.Events;
+using Rebus.Bus;
 
-namespace Ambev.DeveloperEvaluation.Application.Services
+public class SaleService
 {
-    public class SaleService : ISaleService
+    private readonly IBus _bus;
+
+    public SaleService(IBus bus)
     {
-        private readonly IMapper _mapper;
-        private readonly ICartRepository _cartRepository;  // Repositório do Cart, para pegar o Cart com seus Itens
+        _bus = bus;
+    }
 
-        public SaleService(IMapper mapper, ICartRepository cartRepository)
+    public async Task PublishSaleCreatedEvent(Guid saleId, string customerName)
+    {
+        // Criação da instância de Sale
+        var sale = new Sale
         {
-            _mapper = mapper;
-            _cartRepository = cartRepository;
-        }
-
-        public async Task<SaleDTO> CreateSaleAsync(int cartId)
-        {
-            var cart = await _cartRepository.GetByIdAsync(cartId);
-            if (cart == null)
-                throw new Exception("Cart not found");
-
-            var saleDTO = _mapper.Map<SaleDTO>(cart);
-
-            return saleDTO;
-        }
+            Id = saleId,
+            Customer = customerName,
+            Date = DateTime.UtcNow
+        };
+        
     }
 }

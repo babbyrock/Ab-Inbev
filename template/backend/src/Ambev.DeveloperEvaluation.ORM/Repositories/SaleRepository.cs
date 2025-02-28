@@ -18,26 +18,32 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context = context;
         }
 
-        public async Task<Sale> AddAsync(Sale sale, CancellationToken cancellationToken)
+        public async Task<Sale> AddAsync(Sale sale)
         {
-             await _context.Sales.AddAsync(sale, cancellationToken);
+             await _context.Sales.AddAsync(sale);
             return sale;
         }
 
-        public async Task<Sale> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<Sale> GetByIdAsync(Guid id)
         {
-            return await _context.Sales
-                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+            return await _context.Sales.Include(s => s.Items)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<IEnumerable<Sale>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Sale>> GetAllAsync()
         {
-            return await _context.Sales.ToListAsync(cancellationToken);
+            return await _context.Sales.ToListAsync();
         }
 
-        public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async Task SaveChangesAsync()
         {
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateAsync(Sale sale)
+        {
+            _context.Sales.Update(sale);
+            return Task.CompletedTask;
         }
     }
 

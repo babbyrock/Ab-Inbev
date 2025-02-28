@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ambev.DeveloperEvaluation.Application.DTOs
+namespace Ambev.DeveloperEvaluation.Application.Sales.CancelledSale
 {
-    public class SalaDTO
+    public class SaleCancelledCommand
     {
     }
 }

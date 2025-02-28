@@ -13,6 +13,6 @@
         /// <summary>
         /// Gets or sets the total number of ratings.
         /// </summary>
-        public int Count { get; set; }
+        public int? Count { get; set; }
     }
 }
