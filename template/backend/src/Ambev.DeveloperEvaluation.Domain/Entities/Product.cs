@@ -41,6 +41,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// Gets or sets the image URL of the product.
         /// </summary>
         public string Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets Rating of the product.
+        /// </summary>
+        public Rating Rating { get; set; }
     }
 
 }

@@ -1,14 +1,25 @@
 using Ambev.DeveloperEvaluation.Application;
+using Ambev.DeveloperEvaluation.Application.Sales.CancelledSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.Events;
+using Ambev.DeveloperEvaluation.Application.Sales.ModifySale;
+using Ambev.DeveloperEvaluation.Application.Sales.SaleCancelledItem;
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.IoC;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Rebus.Config;
+using Rebus.Handlers;
+using Rebus.Persistence.InMem;
+using Rebus.Routing.TypeBased;
 using Serilog;
+using System.Reflection;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 
@@ -23,6 +34,16 @@ public class Program
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
             builder.AddDefaultLogging();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalhost4200", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200") // Adiciona o domínio e a porta que você quer permitir
+                          .AllowAnyHeader()  // Permite qualquer header
+                          .AllowAnyMethod(); // Permite qualquer método (GET, POST, PUT, DELETE, etc.)
+                });
+            });
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
@@ -35,8 +56,10 @@ public class Program
                     b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
                 )
             );
-
+                
             builder.Services.AddJwtAuthentication(builder.Configuration);
+
+            builder.Services.AddTransient<SaleService>();
 
             builder.RegisterDependencies();
 
@@ -52,6 +75,21 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            builder.Services.AddRebus(bus => bus
+                .Transport(t => t.UseRabbitMq(builder.Configuration.GetConnectionString("RabbitMq"), "Rebus.OrderQueue"))
+                .Routing(r => r.TypeBased()
+                    .Map<SaleCreatedEvent>("Rebus.OrderQueue")
+                    .Map<SaleModifiedEvent>("Rebus.OrderQueue")
+                    .Map<SaleCancelledEvent>("Rebus.OrderQueue")
+                    .Map<SaleCancelledItemEvent>("Rebus.OrderQueue")
+                )
+            );
+            builder.Services.AddTransient<IHandleMessages<SaleCreatedEvent>, SaleCreatedEventHandler>();
+            builder.Services.AddTransient<IHandleMessages<SaleModifiedEvent>, ModifySaleCommandHandler>();
+            builder.Services.AddTransient<IHandleMessages<SaleCancelledEvent>, SaleCancelledEventHandler>();
+            builder.Services.AddTransient<IHandleMessages<SaleCancelledItemEvent>, SaleCancelledItemEventHandler>();
+            builder.Services.AutoRegisterHandlersFromAssemblyOf<ModifySaleCommandHandler>();
+
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
 
@@ -62,6 +100,8 @@ public class Program
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowLocalhost4200");
 
             app.UseAuthentication();
             app.UseAuthorization();
