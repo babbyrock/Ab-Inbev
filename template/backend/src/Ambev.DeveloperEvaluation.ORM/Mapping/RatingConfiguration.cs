@@ -31,12 +31,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(r => r.Date)
                 .HasColumnType("timestamp with time zone")
                 .HasDefaultValueSql("NOW()");
-
-
-            builder.HasOne(r => r.Product)
-                .WithMany()
-                .HasForeignKey(r => r.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

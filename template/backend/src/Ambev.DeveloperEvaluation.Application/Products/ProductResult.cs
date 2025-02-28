@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ambev.DeveloperEvaluation.Domain.Entities
+namespace Ambev.DeveloperEvaluation.Application.Products
 {
-    /// <summary>
-    /// Represents a product in the system with authentication and profile information.
-    /// This entity follows domain-driven design principles and includes business rules validation.
-    /// </summary>
-    public class Product
+    public class ProductResult
     {
         /// <summary>
         /// Gets or sets the unique identifier for the product.
@@ -41,11 +37,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// Gets or sets the image URL of the product.
         /// </summary>
         public string Image { get; set; }
-
         /// <summary>
-        /// Gets or sets Rating of the product.
+        /// Gets the product associated with this sale item.
         /// </summary>
-        public Rating Rating { get; set; }
+        public ProductRating Rating { get; set; }
     }
-
 }

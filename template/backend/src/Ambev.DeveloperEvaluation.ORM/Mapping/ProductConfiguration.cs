@@ -34,6 +34,10 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(p => p.Image)
                 .HasMaxLength(255);
 
+            builder.HasOne(p => p.Rating)
+            .WithOne()  // Não há propriedade de navegação em Rating de volta para Product
+            .HasForeignKey<Rating>(r => r.ProductId)  // A chave estrangeira é ProductId
+            .OnDelete(DeleteBehavior.Cascade);  // Quando um Product for deletado, seu Rating também será deletado
         }
     }
 }

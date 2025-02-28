@@ -17,11 +17,6 @@
         public int ProductId { get; set; }
 
         /// <summary>
-        /// The product associated with this rating.
-        /// </summary>
-        public Product? Product { get; set; }
-
-        /// <summary>
         /// The rating value given to the product (1 to 5).
         /// </summary>
         public decimal Rate { get; set; }
