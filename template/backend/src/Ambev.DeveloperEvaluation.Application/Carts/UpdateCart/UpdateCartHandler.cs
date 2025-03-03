@@ -46,14 +46,20 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
 
             await _cartRepository.DeleteCartItemsAsync(itemsToRemove, cancellationToken);
 
-            var cartMapped = _mapper.Map<Cart>(request);
-            cartMapped.Date = DateTime.UtcNow;
+            cart.Date = DateTime.UtcNow; // Atualiza a data
+            cart.Products = request.Products.Select(item => new CartItem
+            {
+                CartId = cart.Id, // Usar o ID do carrinho existente
+                Id = item.Id,
+                ProductId = item.ProductId,
+                Quantity = item.Quantity
+            }).ToList();
 
-            await _cartRepository.UpdateAsync(cartMapped, itemsToRemove,  cancellationToken);
+            await _cartRepository.UpdateAsync(cart, itemsToRemove,  cancellationToken);
 
             await _cartRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<CartResult>(cartMapped);
+            return _mapper.Map<CartResult>(cart);
         }
     }
 }

@@ -21,12 +21,6 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct
                 .Length(3, 50).WithMessage("Category must be between 3 and 50 characters.")
                 .When(p => p.Category is not null);
 
-            RuleFor(p => p.Image)
-                .NotEmpty().WithMessage("Image is required.")
-                .Matches(@"^.*\.(jpg|jpeg|png|gif|bmp)$", RegexOptions.IgnoreCase)
-                .WithMessage("Invalid image format. Allowed formats: jpg, jpeg, png, gif, bmp.")
-                .When(p => !string.IsNullOrWhiteSpace(p.Image));
-
             RuleFor(p => p.Rating.Rate)
                 .InclusiveBetween(0, 5).WithMessage("Rating must be between 0 and 5.")
                 .When(p => p.Rating is not null);

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="nav-bar">
+  <span class="logo">Minha Loja</span>
+
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+  <a mat-button routerLink="/products" routerLinkActive="active">Produtos</a>
+  <a mat-button routerLink="/cart">
+    <mat-icon>shopping_cart</mat-icon>
+    Carrinho
+  </a>
+
+  <!-- Links de autenticação -->
+  <ng-container *ngIf="isLoggedIn(); else loggedOut">
+    <a mat-button (click)="logout()">Sair</a>
+  </ng-container>
+
+  <ng-template #loggedOut>
+    <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+    <a mat-button routerLink="/create-user" routerLinkActive="active">Cadastre-se</a>
+  </ng-template>
+</mat-toolbar>

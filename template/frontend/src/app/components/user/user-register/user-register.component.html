@@ -1,0 +1,63 @@
+<div class="user-registration-form">
+  <h2>Cadastro de Usuário</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+
+    <mat-form-field>
+      <mat-label>Nome de Usuário</mat-label>
+      <input matInput formControlName="username" placeholder="Digite o nome de usuário">
+      <mat-error *ngIf="userForm.controls['username'].hasError('required')">Nome de usuário é obrigatório</mat-error>
+      <mat-error *ngIf="userForm.controls['username'].hasError('minlength')">Nome de usuário deve ter pelo menos 3 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Senha</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Digite a senha">
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="userForm.controls['password'].hasError('required')">Senha é obrigatória</mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">Senha deve ter pelo menos 8 caracteres</mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('pattern')">
+        A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" placeholder="Digite o telefone">
+      <mat-error *ngIf="userForm.controls['phone'].hasError('required')">Telefone é obrigatório</mat-error>
+      <mat-error *ngIf="userForm.controls['phone'].hasError('pattern')">Telefone inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="Digite o e-mail">
+      <mat-error *ngIf="userForm.controls['email'].hasError('required')">E-mail é obrigatório</mat-error>
+      <mat-error *ngIf="userForm.controls['email'].hasError('email')">E-mail inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of userStatuses" [value]="status.key">
+          {{ status.value }} <!-- Aqui você deve acessar a propriedade 'value' -->
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="userForm.controls['status'].hasError('required')">Status é obrigatório</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Função</mat-label>
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let role of userRoles" [value]="role.key">
+          {{ role.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="userForm.controls['role'].hasError('required')">Função é obrigatória</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Cadastrar</button>
+  </form>
+</div>

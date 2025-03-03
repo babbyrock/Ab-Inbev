@@ -14,7 +14,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
 
             builder.Property(c => c.UserId)
-                .IsRequired();
+                .IsRequired().HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()"); ;
 
             builder.Property(c => c.Date)
                 .HasColumnType("timestamp with time zone")

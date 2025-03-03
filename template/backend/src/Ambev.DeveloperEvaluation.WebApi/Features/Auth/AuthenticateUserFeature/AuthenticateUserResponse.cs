@@ -7,6 +7,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Auth.AuthenticateUserFeature
 /// </summary>
 public sealed class AuthenticateUserResponse
 {
+    public Guid Id { get; set; }
     /// <summary>
     /// Gets or sets the JWT token for authenticated user
     /// </summary>

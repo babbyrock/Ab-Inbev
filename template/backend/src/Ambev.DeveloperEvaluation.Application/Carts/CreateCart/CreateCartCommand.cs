@@ -10,7 +10,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart
 {
     public class CreateCartCommand : IRequest<CartResult>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<CartCartItem> Products { get; set; }
     }
 }

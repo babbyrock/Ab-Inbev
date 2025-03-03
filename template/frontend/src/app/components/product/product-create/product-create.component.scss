@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px; /* Garante que haja uma margem ao redor do card */
+}
+
+.main-card {
+  padding: 40px; /* Adiciona padding interno ao redor do conteúdo */
+  width: 100%;
+  max-width: 650px; /* Limita a largura do card */
+  border-radius: 10px; /* Arredonda os cantos do card */
+  background-color: white; /* Cor de fundo do card */
+}
+
+.title {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px; /* Garante que o título tenha um espaçamento adequado em relação ao conteúdo */
+}
+
+.form-card {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 20px;
+}

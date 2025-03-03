@@ -1,0 +1,54 @@
+/* cart.component.scss */
+.cart-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.quantity-container button {
+  background-color: #f0c14b; /* Cor semelhante à Amazon */
+  border: 1px solid #a88734; /* Borda semelhante à Amazon */
+  color: #111; /* Cor do texto */
+  padding: 5px 10px; /* Preenchimento dos botões */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+.quantity-container input {
+  width: 50px; /* Largura do campo de entrada */
+  text-align: center; /* Centraliza o texto no campo */
+  margin: 0 5px; /* Margem entre os botões e o campo */
+}
+
+.delete-link {
+  margin-left: 10px;
+  color: #2162a1;
+  cursor: pointer;
+}
+
+.delete-link:hover {
+  text-decoration: underline;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain; /* Ajusta a imagem sem cortar */
+}
