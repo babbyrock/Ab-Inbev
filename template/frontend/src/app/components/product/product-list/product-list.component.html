@@ -1,0 +1,36 @@
+<div class="container">
+  <mat-card class="main-card">
+    <h2>Produtos</h2>
+    <button mat-raised-button color="primary" routerLink="/products/create">Criar Produto</button>
+    <mat-table [dataSource]="products" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{ product.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{ product.price }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let product">
+          <button mat-button color="primary" [routerLink]="['/products/edit', product.id]" (click)="$event.stopPropagation()">Editar</button>
+          <button mat-button color="warn" (click)="deleteProduct(product.id); $event.stopPropagation()">Deletar</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let product; columns: displayedColumns;"
+        (click)="viewProduct(product.id)"
+        class="clickable-row">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="totalProducts" [pageSize]="pageSize" [pageIndex]="pageNumber - 1" (page)="onPageChange($event)">
+    </mat-paginator>
+  </mat-card>
+</div>

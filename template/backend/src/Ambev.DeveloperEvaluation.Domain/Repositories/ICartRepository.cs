@@ -14,5 +14,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         Task DeleteCartItemsAsync(List<CartItem> itemsToRemove, CancellationToken cancellationToken = default);
         Task DeleteAsync(Cart cart, CancellationToken cancellationToken = default);
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
+        Task<Cart> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

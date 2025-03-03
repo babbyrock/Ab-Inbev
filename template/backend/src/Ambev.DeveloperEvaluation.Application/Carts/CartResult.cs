@@ -10,7 +10,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts
     public class CartResult
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public DateTime Date { get; set; }
         public List<CartCartItem> Products { get; set; }
     }

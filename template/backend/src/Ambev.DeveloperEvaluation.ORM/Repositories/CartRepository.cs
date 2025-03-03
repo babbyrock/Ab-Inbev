@@ -35,6 +35,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
                                        .FirstOrDefaultAsync(c => c.Id == cartId, cancellationToken);
         }
 
+        public async Task<Cart> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        {
+            return await _context.Carts.Include(c => c.Products).ThenInclude(c => c.Product)
+                                       .AsNoTracking()
+                                       .FirstOrDefaultAsync(c => c.UserId == userId, cancellationToken);
+        }
+
         public Task UpdateAsync(Cart cart, List<CartItem> itemsToRemove, CancellationToken cancellationToken = default)
         {
             _context.Carts.Update(cart);

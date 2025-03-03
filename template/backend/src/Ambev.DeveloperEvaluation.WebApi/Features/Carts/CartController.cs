@@ -9,6 +9,7 @@ using Ambev.DeveloperEvaluation.Application.Carts.GetCarts;
 using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
+using Ambev.DeveloperEvaluation.Application.Carts.GetCartByUserId;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
 {
@@ -88,6 +89,36 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
             {
                 Success = true,
                 Message = "Cart retrieved successfully",
+                Data = _mapper.Map<CartResult>(response)
+            });
+        }
+
+        [HttpGet("user/{userId}")] // Adiciona um prefixo "user" para diferenciar
+        [ProducesResponseType(typeof(ApiResponseWithData<CartResult>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCartByUserId([FromRoute] Guid userId, CancellationToken cancellationToken)
+        {
+            var request = new GetCartByUserIdCommand(userId);
+
+            // Envia o comando para obter o carrinho
+            var response = await _mediator.Send(request, cancellationToken);
+
+            // Verifica se a resposta é nula ou se o carrinho não foi encontrado
+            if (response == null)
+            {
+                return Ok(new ApiResponse
+                {
+                    Success = false,
+                    Message = "Carrinho não encontrado."
+                });
+            }
+
+            // Se o carrinho foi encontrado, retorna a resposta
+            return Ok(new ApiResponseWithData<CartResult>
+            {
+                Success = true,
+                Message = "Carrinho recuperado com sucesso.",
                 Data = _mapper.Map<CartResult>(response)
             });
         }

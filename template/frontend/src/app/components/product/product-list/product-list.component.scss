@@ -1,0 +1,35 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Organiza os itens em coluna */
+  align-items: flex-start; /* Alinha os itens ao topo */
+  justify-content: flex-start; /* Garante que o conteúdo fique no topo */
+}
+
+.main-card {
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 8px;
+  width: 100%; /* Largura total dentro do container */
+}
+
+.main-card h2 {
+  margin-bottom: 15px;
+}
+
+.main-card button {
+  width: auto; /* O botão ocupa apenas o tamanho necessário */
+  margin-top: 10px;
+  margin-bottom: 20px;
+  align-self: flex-start; /* Garante que o botão esteja alinhado à esquerda */
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}

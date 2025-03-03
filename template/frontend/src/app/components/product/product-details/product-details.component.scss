@@ -1,0 +1,55 @@
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.main-card {
+  padding: 40px;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.title {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-card {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+  gap: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+

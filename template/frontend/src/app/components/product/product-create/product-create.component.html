@@ -1,0 +1,91 @@
+<div class="container">
+  <mat-card class="main-card">
+    <h2 class="text-center mb-4 title">Criar Produto</h2>
+    <mat-card class="form-card">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <!-- Título -->
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Título</mat-label>
+          <input matInput id="title" formControlName="title" placeholder="Título do Produto" />
+          <mat-error *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched">
+            <ng-container *ngIf="productForm.get('title')?.errors?.['required']">O título é obrigatório.</ng-container>
+            <ng-container *ngIf="productForm.get('title')?.errors?.['minlength']">O título deve ter no mínimo 2 caracteres.</ng-container>
+            <ng-container *ngIf="productForm.get('title')?.errors?.['maxlength']">O título deve ter no máximo 100 caracteres.</ng-container>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Preço -->
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Preço</mat-label>
+          <input matInput type="number" id="price" formControlName="price" placeholder="Preço do Produto" />
+          <mat-error *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+            <ng-container *ngIf="productForm.get('price')?.errors?.['required']">O preço é obrigatório.</ng-container>
+            <ng-container *ngIf="productForm.get('price')?.errors?.['min']">O preço deve ser maior que zero.</ng-container>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Descrição -->
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput id="description" formControlName="description" placeholder="Descrição do Produto"></textarea>
+          <mat-error *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+            A descrição é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Categoria -->
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Categoria</mat-label>
+          <input matInput id="category" formControlName="category" placeholder="Categoria do Produto" />
+          <mat-error *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+            <ng-container *ngIf="productForm.get('category')?.errors?.['required']">A categoria é obrigatória.</ng-container>
+            <ng-container *ngIf="productForm.get('category')?.errors?.['minlength']">A categoria deve ter no mínimo 3 caracteres.</ng-container>
+            <ng-container *ngIf="productForm.get('category')?.errors?.['maxlength']">A categoria deve ter no máximo 50 caracteres.</ng-container>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Imagem -->
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Imagem URL</mat-label>
+          <input matInput id="image" formControlName="image" placeholder="URL da Imagem do Produto" />
+          <mat-error *ngIf="productForm.get('image')?.invalid && productForm.get('image')?.touched">
+            <ng-container *ngIf="productForm.get('image')?.errors?.['required']">A URL da imagem é obrigatória.</ng-container>
+            <ng-container *ngIf="productForm.get('image')?.errors?.['pattern']">Formato de imagem inválido. Use jpg, jpeg, png, gif ou bmp.</ng-container>
+          </mat-error>
+        </mat-form-field>
+
+        <div formGroupName="rating">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Avaliação</mat-label>
+            <mat-select formControlName="rate">
+              <mat-option value="1">1 - Ruim</mat-option>
+              <mat-option value="2">2 - Regular</mat-option>
+              <mat-option value="3">3 - Bom</mat-option>
+              <mat-option value="4">4 - Muito Bom</mat-option>
+              <mat-option value="5">5 - Excelente</mat-option>
+            </mat-select>
+            <mat-error *ngIf="productForm.get('rating.rate')?.invalid && productForm.get('rating.rate')?.touched">
+              A avaliação deve estar entre 1 e 5.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Contagem de Avaliações</mat-label>
+            <input matInput  formControlName="count" placeholder="Contagem de Avaliações" />
+            <mat-error *ngIf="productForm.get('rating.count')?.invalid && productForm.get('rating.count')?.touched">
+              <ng-container *ngIf="productForm.get('rating.count')?.errors?.['min']">A contagem de avaliações não pode ser menor que 0.</ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Botões -->
+        <mat-card-actions style="display: flex; justify-content: space-between; width: 100%; padding: 16px;">
+          <!-- Botão Voltar -->
+          <button mat-raised-button color="accent" (click)="navigateToProducts()" style="flex-grow: 1; margin-right: 8px;">Voltar</button>
+          <!-- Botão Criar Produto -->
+          <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid" style="flex-grow: 1; margin-left: 8px;">Criar Produto</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </mat-card>
+</div>

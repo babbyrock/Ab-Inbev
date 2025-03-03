@@ -1,0 +1,20 @@
+<div class="product-catalog">
+  <div class="product-card" *ngFor="let product of products">
+    <mat-card class="product-item">
+      <img mat-card-image [src]="product.image" alt="{{ product.title }}" class="product-image">
+      <mat-card-content>
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.description }}</p>
+        <p><strong>Preço:</strong> R$ {{ product.price | number: '1.2-2' }}</p>
+        <button mat-raised-button color="primary" (click)="addToCart(product)">Adicionar ao Carrinho</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Controles de Paginação -->
+<div class="pagination-controls">
+  <button mat-raised-button (click)="loadProducts('previous')" [disabled]="pageNumber <= 1">Anterior</button>
+  <span> Página {{ pageNumber }} </span>
+  <button mat-raised-button (click)="loadProducts('next')" [disabled]="pageNumber >= totalPages">Próximo</button>
+</div>

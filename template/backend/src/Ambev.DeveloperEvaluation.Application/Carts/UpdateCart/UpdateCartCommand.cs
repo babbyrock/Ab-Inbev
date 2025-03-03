@@ -12,7 +12,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart
     {
         [JsonIgnore]
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<CartCartItem> Products { get; set; }
 
     }
